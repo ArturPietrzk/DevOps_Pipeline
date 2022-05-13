@@ -9,11 +9,8 @@ pipeline
         {
             steps 
             {
-               sh 'docker container prune -f'
-               sh 'docker volume prune -f' 
-               sh 'docker build -t app_build:latest . -f ./docker_clone'
-               sh "docker run --name clone --rm --mount source=in,target=/volume_in git:latest"
-               
+              echo 'Clone'
+               git branch: 'main', credentialsId: '6977c098-3192-4933-9512-ab1b9abc2433', url: 'https://github.com/ArturPietrzk/DevOps_Pipeline.git'
             }
         }
 
@@ -22,12 +19,7 @@ pipeline
         {
             steps 
             {
-               sh 'docker container prune -f'
-               sh 'docker volume prune -f' 
-               sh 'docker volume  create --name input_vol'
-               sh 'docker volume  create --name out_vol'
-               sh 'docker build -t app_build:latest . -f ./docker_build'
-               sh 'docker run -v input_vol:/Cytoscape app_build'
+           	echo 'build'
                
             }
         }
